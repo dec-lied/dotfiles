@@ -4,7 +4,7 @@ nnoremap <silent> <C-u>         <Cmd>nohl<CR>
 " inverse tab
 inoremap          <S-Tab>       <C-d>
 
-" insta newly edit current line
+" cc shortcut
 nnoremap <silent> <C-c>         cc
 
 " full copy and replace shortcuts

@@ -117,7 +117,7 @@ local opts =
 {
     tools =
     {
-        -- automatically call RustReloadWorkspace when writing to a Cargo.toml file.
+        -- automatically call RustReloadWorkspace when writing to cargo.toml
         reload_workspace_from_cargo_toml = true,
 
         inlay_hints =

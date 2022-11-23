@@ -21,10 +21,10 @@ endif
 
 " numbers
 set number
-
-" set noshowmode " hide -- INSERT -- bc lightline
-set showmode " show -- INSERT -- bc lightline
 set relativenumber
+
+" set noshowmode " (hide -- INSERT -- bc lightline)
+set showmode
 
 " tab settings
 set tabstop=4
