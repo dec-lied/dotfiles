@@ -7,16 +7,29 @@ inoremap          <S-Tab>       <C-d>
 " cc shortcut
 nnoremap <silent> <C-c>         cc
 
+" 1/2 page scrolling
+nnoremap <silent> <C-S-j>       <C-d>
+nnoremap <silent> <C-S-k>       <C-u>
+
 " full copy and replace shortcuts
 nnoremap          gc            <Cmd>%y+<CR>
 nnoremap <silent> gv            <Cmd>%d<CR>"+P<CR>
 
 " rust keybinds
 nnoremap <silent> <leader>re    <Cmd>lua vim.lsp.buf.hover()<CR>
-nnoremap          <leader>rr    :!cargo run<CR>
+nnoremap          <leader>rr    <Cmd>!cargo run<CR>
 
-" neo-tree
-nnoremap <silent> <C-n>         :Neotree action=focus reveal=true<CR>
+" latex keybinds
+function! OpenPdf()
+    let filename = expand('%:p:r') . '.pdf'
+    execute 'silent !'.filename
+endfunction
+nnoremap <leader>lc             <Cmd>TexlabBuild<CR>
+nnoremap <silent> <leader>lv    <Cmd>call OpenPdf()<CR>
+
+" nvimtree
+nnoremap <silent> <C-n>         <Cmd>NvimTreeFocus<CR>
+nnoremap <silent> <leader>lr    <Cmd>NvimTreeRefresh<CR>
 
 " telescope keys
 nnoremap <silent> <C-f>         <Cmd>Telescope find_files<CR>

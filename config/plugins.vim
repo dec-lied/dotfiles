@@ -1,6 +1,6 @@
 " startup commands
 autocmd VimEnter * cd ~/
-autocmd VimEnter * Neotree action=focus dir=~/
+autocmd VimEnter * :NvimTreeFocus
 
 lua << EOF
 
@@ -22,7 +22,7 @@ require"fidget".setup{}
 
 require'nvim-treesitter.configs'.setup
 {
-    ensure_installed = { "c", "cpp", "vim", "lua", "rust", "java", "python" },
+    ensure_installed = { "c", "cpp", "vim", "lua", "rust", "java", "python" }, -- latex handled by texlab
     sync_install = false,
     auto_install = false,
 
@@ -56,36 +56,57 @@ require 'telescope'.setup
 }
 
 -- -- -- -- -- -- -- -- -- -- -- --
---  nvim-neo-tree/neo-tree.nvim  --
+--    nvim-tree/nvim-tree.lua    --
 -- -- -- -- -- -- -- -- -- -- -- --
 
-require 'neo-tree'.setup
+require'nvim-tree'.setup
 {
-    popup_border_style = "rounded",
+    open_on_setup = true,
+    sync_root_with_cwd = true, -- actions { change_dir { global } } may have conflicts if this is enabled
 
-    sources = 
+    view =
     {
-        "filesystem",
-        "buffers",
-        "git_status"
-    },
-    
-    source_selector = 
-    {
-        winbar = true
-    },
+       adaptive_size = true,
+       relativenumber = true,
+       signcolumn = "no",
 
-    filesystem = 
+       mappings =
+       {
+            list =
+            {
+               { key = "<BS>",  action = "dir_up" },
+               { key = ".",     action = "cd"}
+            },
+       },
+    },
+    renderer =
     {
-        filtered_items =
-        {
-            visible = true,
-            hide_dotfiles = false,
-            hide_gitignored = false
+       symlink_destination = false,
+
+       icons = 
+       {
+            show =
+            {
+                git = false
+            }
         }
     },
-
-    hijack_netrw_behavior = "open_default"
+    filesystem_watchers =
+    {
+        enable = false,
+    },
+    update_focused_file =
+    {
+        enable = true
+    },
+    actions = 
+    {
+        change_dir = 
+        {
+            enable = true,
+            global = true
+        }
+    }
 }
 
 -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
@@ -109,9 +130,11 @@ require'lspconfig'.clangd.setup{}
 
 require'lspconfig'.pyright.setup{}
 
--- -- -- -- -- -- -- -- -- -- --
---  simrat39/rust-tools.nvim  --
--- -- -- -- -- -- -- -- -- -- --
+-- -- -- -- -- -- -- --
+--  latex lsp setup  --
+-- -- -- -- -- -- -- --
+
+require'lspconfig'.texlab.setup{}
 
 local opts =
 {
@@ -131,7 +154,7 @@ local opts =
             max_len_align_padding = 1,
             right_align = false,
             right_align_padding = 7,
-            highlight = "Comment",
+            highlight = "Commnt",
         },
 
         hover_actions =

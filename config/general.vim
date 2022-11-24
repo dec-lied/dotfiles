@@ -16,6 +16,8 @@ if exists("g:neovide")
     endfunction
 
     map <F11> <Cmd>call Neovide_fullscreen()<CR>
+    let g:loaded_netrw       = 1
+    let g:loaded_netrwPlugin = 1
 endif
 
 
@@ -43,6 +45,7 @@ set whichwrap+=<,>,[,]
 
 " misc
 set hidden
+let g:tex_flavor = 'latex'
 
 " history keeping
 set noswapfile

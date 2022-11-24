@@ -20,10 +20,10 @@ Plug 'nvim-treesitter/nvim-treesitter', { 'do' : 'TSUpdate' }
 
 " tree & tabs
 Plug 'romgrk/barbar.nvim'
-Plug 'nvim-telescope/telescope.nvim'
+Plug 'nvim-tree/nvim-tree.lua'
 
 " telescope
-Plug 'nvim-neo-tree/neo-tree.nvim'
+Plug 'nvim-telescope/telescope.nvim'
 
 " lsp
 Plug 'neovim/nvim-lspconfig'
