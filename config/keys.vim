@@ -27,6 +27,9 @@ endfunction
 nnoremap <leader>lc             <Cmd>TexlabBuild<CR>
 nnoremap <silent> <leader>lv    <Cmd>call OpenPdf()<CR>
 
+" python keybinds
+nnoremap <silent> <leader>p     <Cmd>!python %:p<CR>
+
 " nvimtree
 nnoremap <silent> <C-n>         <Cmd>NvimTreeFocus<CR>
 nnoremap <silent> <leader>lr    <Cmd>NvimTreeRefresh<CR>
