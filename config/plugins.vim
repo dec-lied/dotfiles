@@ -118,97 +118,70 @@ require'indent_blankline'.setup
     show_current_context = true,
 }
 
+-- -- -- -- -- -- -- --
+-- general lsp setup -- 
+-- -- -- -- -- -- -- --
+
+local on_attach = function(client, bufnr)
+    vim.keymap.set('n', '<leader>a', vim.lsp.buf.hover, bufopts)
+    vim.keymap.set('n', '<leader>s', vim.lsp.buf.definition, bufopts)
+    vim.keymap.set('n', '<leader>d', vim.lsp.buf.declaration, bufopts)
+end
+
+local lsp_flags =
+{
+    debounce_text_changes = 150,
+}
+
+local servers = { 'clangd', 'pyright', 'texlab' }
+
+for _, server in pairs(servers) do
+    require'lspconfig'[server].setup
+    {
+        on_attach = on_attach,
+        lsp_flags = lsp_flags
+    }
+end
+
 -- -- -- -- -- -- -- -- --
 --   clangd lsp setup   --
 -- -- -- -- -- -- -- -- --
-
-require'lspconfig'.clangd.setup{}
 
 -- -- -- -- -- -- -- --
 -- pyright lsp setup --
 -- -- -- -- -- -- -- --
 
-require'lspconfig'.pyright.setup{}
-
 -- -- -- -- -- -- -- --
 --  latex lsp setup  --
 -- -- -- -- -- -- -- --
 
-require'lspconfig'.texlab.setup{}
+-- -- -- -- -- -- --
+-- rust lsp setup --
+-- -- -- -- -- -- --
 
-local opts =
+require'lspconfig'.rust_analyzer.setup
 {
-    tools =
+    on_attach = on_attach,
+    
+    settings =
     {
-        -- automatically call RustReloadWorkspace when writing to cargo.toml
-        reload_workspace_from_cargo_toml = true,
-
-        inlay_hints =
+        ["rust-analyzer"] =
         {
-            auto = true,
-            only_current_line = false,
-            show_parameter_hints = true,
-            parameter_hints_prefix = "<- ",
-            other_hints_prefix = "=> ",
-            max_len_align = false,
-            max_len_align_padding = 1,
-            right_align = false,
-            right_align_padding = 7,
-            highlight = "Commnt",
-        },
-
-        hover_actions =
-        {
-            border =
+            inlayHints = 
             {
-                { "╭", "FloatBorder" },
-                { "─", "FloatBorder" },
-                { "╮", "FloatBorder" },
-                { "│", "FloatBorder" },
-                { "╯", "FloatBorder" },
-                { "─", "FloatBorder" },
-                { "╰", "FloatBorder" },
-                { "│", "FloatBorder" },
-             },
-             max_width = nil,
-             max_height = nil,
-             auto_focus = false,
-        },
-  },
-
-    server =
-    {
-        settings =
-        {
-            ["rust-analyzer"] =
-            {
-                assist =
-                {
-                    importEnforceGranularity = true,
-                    importPrefix = "crate"
-                },
-                cargo =
-                {
-                    allFeatures = true
-                },
+                bindingModeHints = true
             },
-            inlayHints =
+            cargo =
             {
-                lifetimeElisionHints =
-                {
-                    enable = true,
-                    useParameterNames = true
-                },
+                autoreload = true
             },
-        },
-        flags = 
-        {
-            debounce_text_changes = 150
+            checkOnSave =
+            {
+                command = "clippy"
+            }
         }
-    },
+    }
 }
-
-require'rust-tools'.setup(opts)
 
 -- -- -- -- -- -- -- -- --
 --   hrsh7th/nvim-cmp   --
@@ -225,8 +198,8 @@ cmp.setup
     },
     mapping = 
     {
-        ['<C-a>'] = cmp.mapping.scroll_docs(-4),
-        ['<C-s>'] = cmp.mapping.scroll_docs(4),
+        ['<C-S-f>'] = cmp.mapping.scroll_docs(-4),
+        ['<C-S-d>'] = cmp.mapping.scroll_docs(4),
         ['<Tab>'] = cmp.mapping.confirm (
         {
            behavior = cmp.ConfirmBehavior.Replace,
