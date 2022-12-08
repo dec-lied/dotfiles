@@ -7,6 +7,9 @@ inoremap          <S-Tab>       <C-d>
 " cc shortcut
 nnoremap <silent> <C-c>         cc
 
+" dd shortcut
+nnoremap <silent> <C-d>         dd
+
 " 1/2 page scrolling
 nnoremap <silent> <C-S-j>       <C-d>zz
 nnoremap <silent> <C-S-k>       <C-u>zz
@@ -16,14 +19,15 @@ nnoremap          gc            <Cmd>%y+<CR>
 nnoremap <silent> gv            <Cmd>%d<CR>"+P<CR>
 
 " rust keybinds
-nnoremap <silent> <leader>re    <Cmd>lua vim.lsp.buf.hover()<CR>
 nnoremap          <leader>rr    <Cmd>!cargo run<CR>
+nnoremap          <leader>rt    <Cmd>!cargo test<CR>
 
 " latex keybinds
 function! OpenPdf()
     let filename = expand('%:p:r') . '.pdf'
-    execute 'silent !'.filename
+    execute 'silent !' . filename
 endfunction
+
 nnoremap          <leader>lc    <Cmd>TexlabBuild<CR>
 nnoremap <silent> <leader>lv    <Cmd>call OpenPdf()<CR>
 

@@ -152,7 +152,7 @@ cmp.setup
         ['<C-i>'] = cmp.mapping.scroll_docs(4),
         ['<Up>'] = cmp.mapping.select_prev_item(),
         ['<Down>'] = cmp.mapping.select_next_item(),
-        ['<Tab>'] = cmp.mapping.confirm (
+        ['<Tab>'] = cmp.mapping.confirm(
         {
            behavior = cmp.ConfirmBehavior.Replace,
            select = true,
@@ -173,7 +173,7 @@ cmp.setup
 
 			return item
 		end,
-	},
+	}
 }
 
 -- -- -- -- -- -- -- --
