@@ -8,8 +8,8 @@ inoremap          <S-Tab>       <C-d>
 nnoremap <silent> <C-c>         cc
 
 " 1/2 page scrolling
-nnoremap <silent> <C-S-j>       <C-d>
-nnoremap <silent> <C-S-k>       <C-u>
+nnoremap <silent> <C-S-j>       <C-d>zz
+nnoremap <silent> <C-S-k>       <C-u>zz
 
 " full copy and replace shortcuts
 nnoremap          gc            <Cmd>%y+<CR>

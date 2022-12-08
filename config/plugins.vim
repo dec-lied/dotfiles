@@ -118,6 +118,64 @@ require'indent_blankline'.setup
     show_current_context = true,
 }
 
+-- -- -- -- -- -- -- -- --
+--   hrsh7th/nvim-cmp   --
+-- -- -- -- -- -- -- -- --
+
+local lspkind = require'lspkind'
+
+local source_mapping =
+{
+	buffer = "[Buffer]",
+	nvim_lsp = "[LSP]",
+	vsnip = "[Snippet]",
+	path = "[Path]",
+}
+
+local cmp = require'cmp'
+cmp.setup
+{
+    snippet =
+    {
+        expand = function(args)
+            vim.fn["vsnip#anonymous"](args.body)
+        end,
+    },
+    window =
+    {
+        completion = cmp.config.window.bordered(),
+        documentation = cmp.config.window.bordered()
+    },
+    mapping = 
+    {
+        ['<C-u>'] = cmp.mapping.scroll_docs(-4),
+        ['<C-i>'] = cmp.mapping.scroll_docs(4),
+        ['<Up>'] = cmp.mapping.select_prev_item(),
+        ['<Down>'] = cmp.mapping.select_next_item(),
+        ['<Tab>'] = cmp.mapping.confirm (
+        {
+           behavior = cmp.ConfirmBehavior.Replace,
+           select = true,
+        })
+    },
+    sources = cmp.config.sources(
+    {
+        { name = 'nvim_lsp' },
+        { name = 'vsnip' },
+        { name = 'buffer' },
+    }),
+    formatting =
+    {
+		format = function(entry, item)
+			item.kind = lspkind.presets.default[item.kind]
+
+			item.menu = source_mapping[entry.source.name]
+
+			return item
+		end,
+	},
+}
+
 -- -- -- -- -- -- -- --
 -- general lsp setup -- 
 -- -- -- -- -- -- -- --
@@ -133,13 +191,16 @@ local lsp_flags =
     debounce_text_changes = 150,
 }
 
+local capabilities = require'cmp_nvim_lsp'.default_capabilities()
+
 local servers = { 'clangd', 'pyright', 'texlab' }
 
 for _, server in pairs(servers) do
     require'lspconfig'[server].setup
     {
         on_attach = on_attach,
-        lsp_flags = lsp_flags
+        lsp_flags = lsp_flags,
+        capabilities = capabilities
     }
 end
 
@@ -162,60 +223,32 @@ end
 require'lspconfig'.rust_analyzer.setup
 {
     on_attach = on_attach,
+    lsp_flags = lsp_flags,
+    capabilities = capabilities,
     
+    cmd = { "rustup", "run", "nightly", "rust-analyzer" },
+
     settings =
     {
         ["rust-analyzer"] =
         {
-            inlayHints = 
-            {
-                bindingModeHints = true
-            },
             cargo =
             {
                 autoreload = true
             },
             checkOnSave =
             {
-                command = "clippy"
+                command = "check"
             }
+        },
+
+        rust =
+        {
+            unstable_features = true,
+            build_on_save = false,
+            all_features = true
         }
     }
-}
-
--- -- -- -- -- -- -- -- --
---   hrsh7th/nvim-cmp   --
--- -- -- -- -- -- -- -- --
-
-local cmp = require'cmp'
-cmp.setup
-{
-    snippet =
-    {
-        expand = function(args)
-            vim.fn["vsnip#anonymous"](args.body)
-        end,
-    },
-    mapping = 
-    {
-        ['<C-S-f>'] = cmp.mapping.scroll_docs(-4),
-        ['<C-S-d>'] = cmp.mapping.scroll_docs(4),
-        ['<Tab>'] = cmp.mapping.confirm (
-        {
-           behavior = cmp.ConfirmBehavior.Replace,
-           select = true,
-        }),
-        ['<Up>'] = cmp.mapping.select_prev_item(),
-        ['<Down>'] = cmp.mapping.select_next_item(),
-    },
-    sources =
-    {
-        { name = 'nvim_lsp' },
-        { name = 'vsnip' },
-        { name = 'path' },
-        { name = 'buffer' },
-        { name = 'nvim_lsp_signature_help' },
-    },
 }
 
 EOF

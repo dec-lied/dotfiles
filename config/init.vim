@@ -26,6 +26,8 @@ Plug 'nvim-tree/nvim-tree.lua'
 Plug 'nvim-telescope/telescope.nvim'
 
 " lsp
+Plug 'onsails/lspkind.nvim'
+Plug 'hrsh7th/cmp-vsnip'
 Plug 'neovim/nvim-lspconfig'
 Plug 'hrsh7th/nvim-cmp'
 Plug 'hrsh7th/cmp-nvim-lsp'
