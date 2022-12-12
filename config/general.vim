@@ -28,6 +28,9 @@ set relativenumber
 " set noshowmode " (hide -- INSERT -- bc lightline)
 set showmode
 
+" block cursor
+set guicursor=a:block
+
 " tab settings
 set tabstop=4
 set softtabstop=4

@@ -16,19 +16,27 @@ require'nvim-autopairs'.setup {}
 
 require"fidget".setup{}
 
--- -- -- -- -- -- -- -- -- -- -- -- -- --
---   nvim-treesitter/nvim-treesitter   --
--- -- -- -- -- -- -- -- -- -- -- -- -- --
-
-require'nvim-treesitter.configs'.setup
+require'nightfox'.setup
 {
-    ensure_installed = { "c", "cpp", "vim", "lua", "rust", "java", "python" }, -- latex handled by texlab
-    sync_install = false,
-    auto_install = false,
-
-    highlight =
+    groups = 
     {
-        enable = true
+        all =
+        {
+            Cursor = { bg = "red", fg = "blue" },
+            TermColor = { bg = "red", fg = "blue" }
+        }
+    }
+}
+
+-- -- -- -- -- -- -- -- -- -- -- --
+-- nvim-telescope/telescope.nvim --
+-- -- -- -- -- -- -- -- -- -- -- --
+
+require 'telescope'.setup
+{
+    defaults = 
+    {
+        file_ignore_patterns = { ".git" }
     }
 }
 
@@ -43,15 +51,19 @@ vim.g.bufferline =
     icons = true
 }
 
--- -- -- -- -- -- -- -- -- -- -- --
--- nvim-telescope/telescope.nvim --
--- -- -- -- -- -- -- -- -- -- -- --
+-- -- -- -- -- -- -- -- -- -- -- -- -- --
+--   nvim-treesitter/nvim-treesitter   --
+-- -- -- -- -- -- -- -- -- -- -- -- -- --
 
-require 'telescope'.setup
+require'nvim-treesitter.configs'.setup
 {
-    defaults = 
+    ensure_installed = { "c", "cpp", "vim", "lua", "rust", "java", "python" }, -- latex handled by texlab
+    sync_install = false,
+    auto_install = false,
+
+    highlight =
     {
-        file_ignore_patterns = { ".git" }
+        enable = true
     }
 }
 
