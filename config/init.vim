@@ -3,6 +3,8 @@ call plug#begin("~/AppData/Local/nvim-data/plugged")
 
 " colorscheme
 Plug 'EdenEast/nightfox.nvim'
+" Plug 'nyoom-engineering/nyoom.nvim'
+Plug 'nyoom-engineering/oxocarbon.nvim'
 
 " syntax
 Plug 'windwp/nvim-autopairs'

@@ -30,6 +30,7 @@ set showmode
 
 " block cursor
 set guicursor=a:block
+set guicursor+=i:blinkon500-blinkwait500-blinkoff500
 
 " tab settings
 set tabstop=4
@@ -44,7 +45,6 @@ set incsearch
 
 " wrap settings
 set nowrap
-set whichwrap+=<,>,[,]
 
 " misc
 set hidden
@@ -57,9 +57,10 @@ set undodir="~/AppData/Local/nvim-data/undodir/"
 set undofile
 
 " prescroll
-set scrolloff=10
+set scrolloff=20
 
 " colorscheme
 syntax on
-colorscheme duskfox
-let g:lightline = { "colorscheme" : "duskfox" }
+set background=dark
+colorscheme oxocarbon
+let g:lightline = { "colorscheme" : "oxocarbon" }
